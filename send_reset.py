@@ -3,6 +3,7 @@ from selenium.webdriver.support import ui
 from selenium.webdriver.common.keys import Keys
 from time import sleep
 from load_page import page_is_loaded
+import argparse
 
 
 class Reset(object):
@@ -10,9 +11,9 @@ class Reset(object):
 
     url = "https://iforgot.apple.com/password/verify/appleid" #URL to reset apple id
     
-    def __init__(self, apple_id, attemps=10, headless=False):
+    def __init__(self, apple_id, count=10, headless=False):
         self.apple_id = apple_id
-        self.attemps = attemps
+        self.count = count
         self.headless = headless
 
         if self.headless == True:
@@ -22,12 +23,12 @@ class Reset(object):
 
 
     def use_selenium(self):
-        count = 0
+        count_down = 0
 
         driver = webdriver.Firefox()
         driver.get(self.url)
 
-        while count < self.attemps:
+        while count_down < self.count:
 
             #driver = webdriver.Firefox()
             #driver.get(self.url)
@@ -64,5 +65,14 @@ class Reset(object):
 
 
 
-if __name__ == "__main__":
-    test = Reset("test@test.test", attemps=2)
+parser = argparse.ArgumentParser(description="Send one or more requests to reset Apple ID")
+parser.add_argument("AppleID", action="store")
+parser.add_argument("--count", type=int, default=10)
+parser.add_argument("--headless", default=False)
+
+results = parser.parse_args()
+
+reset = Reset(results.AppleID, results.count, results.headless)
+
+#if __name__ == "__main__":    
+    #    test = Reset("test@test.test", attemps=2)
