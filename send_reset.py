@@ -33,32 +33,40 @@ class Reset(object):
             #driver = webdriver.Firefox()
             #driver.get(self.url)
 
-            wait = ui.WebDriverWait(driver, 10)
-            wait.until(page_is_loaded)
+            #wait = ui.WebDriverWait(driver, 10)
+            #wait.until(page_is_loaded)
 
 	    # input apple id into search field
             elem = driver.find_element_by_xpath("//input[@id='appleid']")
             elem.send_keys(self.apple_id)
             elem.send_keys(Keys.RETURN)
 
-            wait = ui.WebDriverWait(driver, 10)
-            wait.until(page_is_loaded)
-            
-            elem2 = driver.find_element_by_xpath("//div[@class='text-centered']/div[@class='btn-group flow-controls']/button[@id='action']")
+            #wait = ui.WebDriverWait(driver, 10)
+            #wait.until(page_is_loaded)
+            sleep(2)
+            # Selecting to reset password
+            #elem2 = driver.find_element_by_xpath("//div[@class='text-centered']/div[@class='btn-group flow-controls']/button[@id='action']")
+            elem2 = driver.find_element_by_id("action")
             elem2.click()
 
-            wait = ui.WebDriverWait(driver, 10)
-            wait.until(page_is_loaded)
-
-            elem3 = driver.find_element_by_xpath("//button[@class='btn blue-btn btn-link iforgot-btn done link']")
+            #wait = ui.WebDriverWait(driver, 10)
+            #wait.until(page_is_loaded)
+            sleep(2)
+            # Select to get an email
+            #elem3 = driver.find_element_by_xpath("//button[@class='btn blue-btn btn-link iforgot-btn done link']")
+            elem3 = driver.find_element_by_id("action")
             elem3.click()
+            sleep(2)
+            # Select Done
+            elem4 = driver.find_element_by_class_name("done")
+            elem4.click()
 
-            count += 1
-            print ("Attempt %d done" % count)
+            count_down += 1
+            print ("Attempt %d done" % count_down)
             sleep(2)
 
-            sleep(2)
-            driver.quit()
+        sleep(2)
+        driver.quit()
 
     def use_requests(self):
         pass
